@@ -33,7 +33,13 @@ int main() {
   cout.precision(2);         // <- exactly 2 decimal points
 
   // Getting user input...
-  do { cout << "\nLoan Amount: "; cin >> loan_amount; } while (loan_amount < 0);
+  bool eh_la, eh_ir, eh_mp;
+
+  do { 
+    if (eh_la) { cout << "(Invalid Input)\nLoan Amount: ";} else { cout << "\nLoan Amount: "; eh_la = true;  }
+    cin >> loan_amount;
+  } while (loan_amount < 0);
+
   do { cout << "Interest Rate: "; cin >> interest_rate; interest_rate = interest_rate / 12 / 100; } while (interest_rate < 0);
   do { cout << "Monthly Payments: "; cin >> monthly_payments; } while (monthly_payments <= 0 || monthly_payments <= loan_amount * interest_rate);   
 
