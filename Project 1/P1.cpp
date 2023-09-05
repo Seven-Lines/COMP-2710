@@ -1,8 +1,10 @@
-/* FILE NAME - P1 ... for "Project 1"
-* AUTHOR: Sean Bevensee 
-* See Syllabus? Idk. 
+/* 
+* FILE NAME: P1.cpp
+* AUTHOR: Sean Bevensee  
 *
-* SEE "Project1.PDF" ON CANVAS
+* I referenced w3schools.com for C++ basics (input, output,
+* formatting, functions, etc). I also used the template given
+* on the Canvas page "Project1_hints.pdf". 
 */
 
 #include <iostream>
@@ -31,7 +33,7 @@ int main() {
   cout.precision(2);         // <- exactly 2 decimal points
 
   // Getting user input...
-  do { cout << "\nLoan Amount: "; cin >> loan_amount; } while(loan_amount < 0);
+  do { cout << "\nLoan Amount: "; cin >> loan_amount; } while (loan_amount < 0);
   do { cout << "Interest Rate: "; cin >> interest_rate; interest_rate = interest_rate / 12 / 100; } while (interest_rate < 0);
   do { cout << "Monthly Payments: "; cin >> monthly_payments; } while (monthly_payments <= 0 || monthly_payments <= loan_amount * interest_rate);   
 
@@ -43,10 +45,9 @@ int main() {
 
   // Main loop ... 
   while (loan_amount > 0){ 
-    // Exception handling ... 
-    if(current_month == 0) { 
+    if(current_month == 0) {  // Exception handling ... 
       print(true, 0, 0);
-    } else { 
+    } else {                  // Main ...
       float interest_payment = loan_amount * interest_rate; 
       float principle_payment = monthly_payments - interest_payment;
 
