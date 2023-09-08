@@ -33,7 +33,7 @@ void print(bool na, float principle_payment, float interest_payment) {
 
 // Clear Function 
 void clear() { 
-    cin.clear(); cin.ignore(123, '\n');  // <- clear previous input 
+    cin.clear(); cin.ignore(123, '\n');  // <- clear previous input (taken from resource)
 }
 
 //----------- MAIN -----------//
@@ -45,7 +45,7 @@ int main() {
 
   // Get Loan Amount...
   cout << "\nLoan Amount: "; 
-  while (!(cin >> loan_amount) || loan_amount < 0) { 
+  while (!(cin >> loan_amount) || loan_amount < 0) {
     cout << "INVALID INPUT (Loan Amount must be a positive integer).\nLoan Amount: ";
     clear();
   }
