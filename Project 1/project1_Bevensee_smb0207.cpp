@@ -1,14 +1,16 @@
 /* 
 * AUTHOR: Sean Bevensee
 * AUB ID: smb0207
-* FILE NAME: project1_bevensee_smb0207.cpp
+* FILE NAME: project1_Bevensee_smb0207.cpp
 *
-* To compile use command "g++ project1_bevensee_smb0207.cpp"  
+* To compile use command "g++ project1_Bevensee_smb0207.cpp"  
 * in parent directory. 
 *
 * I referenced w3schools.com for C++ basics (input, output,
 * formatting, functions, etc). I also used the template given
-* on the Canvas page "Project1_hints.pdf". 
+* on the Canvas page "Project1_hints.pdf". To determine if 
+* user inputs were numbers I used this YouTube video:
+* https://www.youtube.com/watch?v=m2P5A4nR51g. 
 */
 
 #include <iostream>
@@ -29,6 +31,11 @@ void print(bool na, float principle_payment, float interest_payment) {
   }
 }
 
+// Clear Function 
+void clear() { 
+    cin.clear(); cin.ignore(123, '\n');  // <- clear previous input 
+}
+
 //----------- MAIN -----------//
 int main() {
   // Formating #s...
@@ -36,45 +43,30 @@ int main() {
   cout.setf(ios::showpoint); // <- shows decimal point
   cout.precision(2);         // <- exactly 2 decimal points
 
-  // Getting user input...
-  bool eh_la, eh_ir, eh_mp;  // <- eh = "error handling". produces error message after initial failure.
+  // Get Loan Amount...
+  cout << "\nLoan Amount: "; 
+  while (!(cin >> loan_amount) || loan_amount < 0) { 
+    cout << "INVALID INPUT (Loan Amount must be a positive integer).\nLoan Amount: ";
+    clear();
+  }
 
+  // Get Interest Rate...
+  cout << "Interest Rate (\% per year): ";
+  while (!(cin >> interest_rate) || interest_rate < 0) { 
+    cout << "INAVLID INPUT (Interest Rate must be a positive integer).\nInterest Rate (\% per year): "; 
+    clear();
+  }
+  interest_rate = interest_rate / 12 / 100;
 
-  // Loan Amount...
-  do { 
-    if (eh_la) { 
-      cout << "INVALID INPUT (Loan Amount must be positive).\nLoan Amount: ";
-    } else {
-      cout << "\nLoan Amount: "; 
-      eh_la = true;
-    }
-    cin >> loan_amount;
-  } while (loan_amount < 0);
-
-  // Interest Rate...
-  do {
-    if (eh_ir) { 
-      cout << "INAVLID INPUT (Interest Rate must be positive).\nInterest Rate (\% per year): "; 
-    } else { 
-      cout << "Interest Rate (\% per year): "; 
-      eh_ir = true;
-    }
-    cin >> interest_rate; interest_rate = interest_rate / 12 / 100;
-  } while (interest_rate < 0);
-  
-  // Montly Payments...
-  do { 
-    if(eh_mp) { 
-      cout << "INVALID INPUT (Monthly Payment must be positive \nAND large enough to terminate the loan.)\nMonthly Payments: ";
-    } else { 
-      cout << "Monthly Payments: ";
-      eh_mp = true; 
-    }
-    cin >> monthly_payments;
-  } while (monthly_payments <= 0 || monthly_payments <= loan_amount * interest_rate);
+  // Monthly Payments...
+  cout << "Monthly Payments: ";
+  while (!(cin >> monthly_payments) || monthly_payments <= 0 || monthly_payments <= loan_amount * interest_rate) { 
+    cout << "INVALID INPUT (Monthly Payment must be a positive \ninteger that is large enough to terminate the loan).\nMonthly Payments: ";
+    clear();
+  }
 
   //----------- PRINT OUTPUT -----------//
-  cout << "*****************************************************************\n"
+  cout << "\n*****************************************************************\n"
   << "\tAmortization Table\n"
   << "*****************************************************************\n"
   << "Month\tBalance\t  Payment\tRate\tInterest\tPrincipal\n";
