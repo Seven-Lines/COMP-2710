@@ -1,6 +1,10 @@
 /* 
-* FILE NAME: P1.cpp
-* AUTHOR: Sean Bevensee  
+* AUTHOR: Sean Bevensee
+* AUB ID: smb0207
+* FILE NAME: project1_bevensee_smb0207.cpp
+*
+* To compile use command "g++ project1_bevensee_smb0207.cpp"  
+* in parent directory. 
 *
 * I referenced w3schools.com for C++ basics (input, output,
 * formatting, functions, etc). I also used the template given
@@ -10,7 +14,7 @@
 #include <iostream>
 using namespace std;
 
-//----------- INITIALIZE VARIABLES -----------//
+//----------- INITIALIZE VARIABLES / FUNCTIONS -----------//
 float loan_amount, monthly_payments, interest_rate, interest_total; 
 int current_month = 0; 
 
@@ -33,21 +37,47 @@ int main() {
   cout.precision(2);         // <- exactly 2 decimal points
 
   // Getting user input...
-  bool eh_la, eh_ir, eh_mp;
+  bool eh_la, eh_ir, eh_mp;  // <- eh = "error handling". produces error message after initial failure.
 
+
+  // Loan Amount...
   do { 
-    if (eh_la) { cout << "(Invalid Input)\nLoan Amount: ";} else { cout << "\nLoan Amount: "; eh_la = true;  }
+    if (eh_la) { 
+      cout << "INVALID INPUT (Loan Amount must be positive).\nLoan Amount: ";
+    } else {
+      cout << "\nLoan Amount: "; 
+      eh_la = true;
+    }
     cin >> loan_amount;
   } while (loan_amount < 0);
 
-  do { cout << "Interest Rate: "; cin >> interest_rate; interest_rate = interest_rate / 12 / 100; } while (interest_rate < 0);
-  do { cout << "Monthly Payments: "; cin >> monthly_payments; } while (monthly_payments <= 0 || monthly_payments <= loan_amount * interest_rate);   
+  // Interest Rate...
+  do {
+    if (eh_ir) { 
+      cout << "INAVLID INPUT (Interest Rate must be positive).\nInterest Rate (\% per year): "; 
+    } else { 
+      cout << "Interest Rate (\% per year): "; 
+      eh_ir = true;
+    }
+    cin >> interest_rate; interest_rate = interest_rate / 12 / 100;
+  } while (interest_rate < 0);
+  
+  // Montly Payments...
+  do { 
+    if(eh_mp) { 
+      cout << "INVALID INPUT (Monthly Payment must be positive \nAND large enough to terminate the loan.)\nMonthly Payments: ";
+    } else { 
+      cout << "Monthly Payments: ";
+      eh_mp = true; 
+    }
+    cin >> monthly_payments;
+  } while (monthly_payments <= 0 || monthly_payments <= loan_amount * interest_rate);
 
   //----------- PRINT OUTPUT -----------//
   cout << "*****************************************************************\n"
   << "\tAmortization Table\n"
   << "*****************************************************************\n"
-  << "Month\tBalance\t\tPayment\tRate\tInterest\tPrincipal\n";
+  << "Month\tBalance\t  Payment\tRate\tInterest\tPrincipal\n";
 
   // Main loop ... 
   while (loan_amount > 0){ 
