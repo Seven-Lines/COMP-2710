@@ -6,7 +6,9 @@
 * To compile use command "g++ project1_Bevensee_smb0207.cpp"  
 * in parent directory. 
 *
-* I used the "Project2.pdf" file on Canvas. [ n o t e s ]
+* I used the "Project2.pdf" file on Canvas. I also referenced 
+* this stackoverflow article for the shorthand version of if/else
+* statements in C++: https://shorturl.at/qvFL3.
 */
 
 # include <iostream>
@@ -18,13 +20,13 @@ using namespace std;
 //----------- INITIALIZE VARIABLES -----------//
 
 //----------- FUNCTIONS -----------//
-// Wait for user... 
+/* Wait for user... */  
 void wait(void) { 
     cout << "Press Enter to continue...";
     cin.ignore().get(); 
 }
 
-// At least two alive...
+/* At least two alive... */ 
 bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) { 
     int num_alive; 
     if (A_alive) { num_alive++; }
@@ -33,9 +35,23 @@ bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) {
     if (num_alive >= 2) { return true; } else { return false; }
 }
 
-// Shoots... 
+/* Shoots... 
+*
+* NOTE: The following "[person]_shoots" functions won't run 
+* in the first place if at_lease_two_alive = false. IE: there 
+* cannot be two false inputs. 
+*/
 void Aaron_shoots1(bool& B_alive, bool& C_alive) { 
+    /*
+    if (C_alive) { 
 
+    } else if (B_alive) { 
+
+    } else { 
+        //return(; 
+    }
+    */
+   B_alive = !B_alive;
 }
 
 void Bob_shoots(bool& A_alive, bool& C_alive) { 
@@ -51,9 +67,7 @@ void Aaron_shoots2(bool& B_alive, bool& C_alive) {
 }
 
 //----------- TEST FUNCTIONS -----------//
-/* At least two alive test...
-* NOTE: I am using the formatting presented in "Project2.pdf" on Canvas. */ 
-
+/* At least two alive test... */
 void test_at_least_two_alive(void) { 
     cout << "Unit Testing 1: Function - at_least_two_alive()\n";
     
@@ -94,8 +108,13 @@ void test_at_least_two_alive(void) {
 
 //----------- MAIN -----------//
 int main() { 
-
-    // Testing Functions... 
+    /* Testing Functions... */  
     test_at_least_two_alive(); wait(); 
-    cout << "test";
+    
+    bool b_test = true; bool c_test = false; 
+    cout << b_test << c_test << endl; 
+    Aaron_shoots1(b_test, c_test);
+    cout << b_test << c_test << endl; 
+
+
 }
