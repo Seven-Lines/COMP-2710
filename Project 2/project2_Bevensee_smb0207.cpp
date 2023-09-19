@@ -63,8 +63,11 @@ string Aaron_shoots1(bool& B_alive, bool& C_alive) {
     return target;
 }
 
-void Bob_shoots(bool& A_alive, bool& C_alive) { 
-
+string Bob_shoots(bool& A_alive, bool& C_alive) { 
+    string target; 
+    C_alive ? target = "c" : A_alive ? target = "a" : "";
+    if (shoots(bob_accuracy)) { target == "c" ? C_alive = false : A_alive = false; }
+    return target; 
 }
 
 void Charlie_shoots(bool& A_alive, bool& B_alive) { 
@@ -78,7 +81,7 @@ void Aaron_shoots2(bool& B_alive, bool& C_alive) {
 //----------- TEST FUNCTIONS -----------//
 /* At least two alive test... */
 void test_at_least_two_alive(void) { 
-    cout << "Unit Testing 1: Function - at_least_two_alive()\n";
+    cout << "Unit Testing 1: Function at_least_two_alive()\n";
     
     cout << "\tCase 1: Aaron alive, Bob alive, Charlie alive\n";
     assert(true == at_least_two_alive(true, true, true));
@@ -115,7 +118,7 @@ void test_at_least_two_alive(void) {
 
 void test_aaron_shoots1(void) { 
     bool b, c;
-    cout << "Unit Testing 2: Function - Aaron_shoots1(B_alive, C_alive)\n";
+    cout << "Unit Testing 2: Function Aaron_shoots1(B_alive, C_alive)\n";
 
     cout << "\tCase 1: Bob alive, Charlie alive\n";
     b = true; c = true;
@@ -133,13 +136,36 @@ void test_aaron_shoots1(void) {
     cout << "\t\tAaron is shooting at Bob\n";
 }
 
+void test_bob_shoots(void) { 
+    bool a, c;
+    cout << "Unit 3 Testing: Function bob_shoots(A_alive, C_alive)\n";
 
+    cout << "\tCase 1: Aaron alive, Charlie alive\n"; 
+    a = true; c = true; 
+    assert("c" == Bob_shoots(a, c)); 
+    cout << "\t\tBob is shooting at Charlie\n";
+
+    cout << "\tCase 2: Aaron dead, Charlie alive\n"; 
+    a = false; c = true; 
+    assert("c" == Bob_shoots(a, c)); 
+    cout << "\t\tBob is shooting at Charlie\n";
+
+    cout << "\tCase 3: Aaron alive, Charlie dead\n"; 
+    a = true; c = false; 
+    assert("a" == Bob_shoots(a, c)); 
+    cout << "\t\tBob is shooting at Aaron\n";
+}
+
+void test_charlie_shoots(void) { 
+    bool b, c;
+    cout << "Unit 4 Testing: Function Charlie_shoots";
+}
 
 //----------- MAIN -----------//
 int main() { 
     /* Testing Functions... */  
     test_at_least_two_alive(); wait(); 
     test_aaron_shoots1(); wait();
-   
+    test_bob_shoots(); wait(); 
 
 }
