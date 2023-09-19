@@ -55,15 +55,12 @@ bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) {
 * NOTE: The following "[person]_shoots" functions won't run 
 * in the first place if at_least_two_alive = false. IE: there 
 * cannot be two false inputs. 
-*
-* I also figured that we would be wasting computation if the guy
-* would just end up missing the shot anyway - so I compute if 
-* there is even a hit to consider.
 */
-void Aaron_shoots1(bool& B_alive, bool& C_alive) { 
-    if (shoots(aaron_accuracy)) { 
-        C_alive ? C_alive = false : B_alive ? B_alive = false : false; 
-    }
+string Aaron_shoots1(bool& B_alive, bool& C_alive) { 
+    string target; 
+    C_alive ? target = "c" : B_alive ? target = "b" : ""; 
+    if (shoots(aaron_accuracy)) { target == "c" ? C_alive = false : B_alive = false; }
+    return target;
 }
 
 void Bob_shoots(bool& A_alive, bool& C_alive) { 
@@ -118,21 +115,21 @@ void test_at_least_two_alive(void) {
 
 void test_aaron_shoots1(void) { 
     bool b, c;
-    cout << "Unit Testing 2: Function - aaron_shoots_1()\n";
+    cout << "Unit Testing 2: Function - Aaron_shoots1(B_alive, C_alive)\n";
 
     cout << "\tCase 1: Bob alive, Charlie alive\n";
     b = true; c = true;
-    Aaron_shoots1(b, c); assert(true == c);
+    assert("c" == Aaron_shoots1(b, c));
     cout << "\t\tAaron is shooting at Charlie\n";
     
     cout << "\tCase 2: Bob dead, Charlie alive\n";
     b = false; c = true;
-    Aaron_shoots1(b, c); assert(true == c);
+    assert("c" == Aaron_shoots1(b, c));
     cout << "\t\tAaron is shooting at Charlie\n";
 
     cout << "\tCase 3: Bob alive, Charlie dead\n";
     b = true; c = false;
-    Aaron_shoots1(b, c); assert(true == b);
+    assert("b" == Aaron_shoots1(b, c));
     cout << "\t\tAaron is shooting at Bob\n";
 }
 
