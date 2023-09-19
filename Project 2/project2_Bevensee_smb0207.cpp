@@ -18,6 +18,9 @@
 using namespace std;
 
 //----------- INITIALIZE VARIABLES -----------//
+const double aaron_accuracy = 33.3; 
+const double bob_accuracy = 50.0; 
+const double charlie_accuracy = 100.0;
 
 //----------- FUNCTIONS -----------//
 /* Wait for user... */  
@@ -26,14 +29,15 @@ void wait(void) {
     cin.ignore().get(); 
 }
 
-/* Shoots... 
+/* Shoots Function... 
 *
 * NOTE: Will return TRUE if shot connects, and FALSE if shot 
 * doesn't connect. 
 */
 bool shoots(double accuracy) { 
+    srand(time(0)); //  < Generate new seed for rand()
     double shot_simulation = rand() % 100; 
-    shot_simulation <= accuracy ? return true : return false;
+    if (shot_simulation <= accuracy) { return true; } else { return false; }
 }
 
 
@@ -51,18 +55,15 @@ bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) {
 * NOTE: The following "[person]_shoots" functions won't run 
 * in the first place if at_least_two_alive = false. IE: there 
 * cannot be two false inputs. 
+*
+* I also figured that we would be wasting computation if the guy
+* would just end up missing the shot anyway - so I compute if 
+* there is even a hit to consider.
 */
 void Aaron_shoots1(bool& B_alive, bool& C_alive) { 
-    /*
-    if (C_alive) { 
-
-    } else if (B_alive) { 
-
-    } else { 
-        //return(; 
+    if (shoots(aaron_accuracy)) { 
+        C_alive ? C_alive = false : B_alive ? B_alive = false : false; 
     }
-    */
-   B_alive = !B_alive;
 }
 
 void Bob_shoots(bool& A_alive, bool& C_alive) { 
@@ -70,7 +71,7 @@ void Bob_shoots(bool& A_alive, bool& C_alive) {
 }
 
 void Charlie_shoots(bool& A_alive, bool& B_alive) { 
-
+//return(; 
 }
 
 void Aaron_shoots2(bool& B_alive, bool& C_alive) { 
@@ -115,17 +116,33 @@ void test_at_least_two_alive(void) {
     cout << "\t\tCase passed ...\n";
 }
 
+void test_aaron_shoots1(void) { 
+    bool b, c;
+    cout << "Unit Testing 2: Function - aaron_shoots_1()\n";
+
+    cout << "\tCase 1: Bob alive, Charlie alive\n";
+    b = true; c = true;
+    Aaron_shoots1(b, c); assert(true == c);
+    cout << "\t\tAaron is shooting at Charlie\n";
+    
+    cout << "\tCase 2: Bob dead, Charlie alive\n";
+    b = false; c = true;
+    Aaron_shoots1(b, c); assert(true == c);
+    cout << "\t\tAaron is shooting at Charlie\n";
+
+    cout << "\tCase 3: Bob alive, Charlie dead\n";
+    b = true; c = false;
+    Aaron_shoots1(b, c); assert(true == b);
+    cout << "\t\tAaron is shooting at Bob\n";
+}
+
 
 
 //----------- MAIN -----------//
 int main() { 
     /* Testing Functions... */  
     test_at_least_two_alive(); wait(); 
-    
-    bool b_test = true; bool c_test = false; 
-    cout << b_test << c_test << endl; 
-    Aaron_shoots1(b_test, c_test);
-    cout << b_test << c_test << endl; 
-
+    test_aaron_shoots1(); wait();
+   
 
 }
