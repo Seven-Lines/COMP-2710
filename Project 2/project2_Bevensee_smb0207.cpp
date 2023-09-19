@@ -26,6 +26,17 @@ void wait(void) {
     cin.ignore().get(); 
 }
 
+/* Shoots... 
+*
+* NOTE: Will return TRUE if shot connects, and FALSE if shot 
+* doesn't connect. 
+*/
+bool shoots(double accuracy) { 
+    double shot_simulation = rand() % 100; 
+    shot_simulation <= accuracy ? return true : return false;
+}
+
+
 /* At least two alive... */ 
 bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) { 
     int num_alive; 
@@ -38,7 +49,7 @@ bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) {
 /* Shoots... 
 *
 * NOTE: The following "[person]_shoots" functions won't run 
-* in the first place if at_lease_two_alive = false. IE: there 
+* in the first place if at_least_two_alive = false. IE: there 
 * cannot be two false inputs. 
 */
 void Aaron_shoots1(bool& B_alive, bool& C_alive) { 
