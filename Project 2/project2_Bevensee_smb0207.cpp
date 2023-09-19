@@ -6,26 +6,35 @@
 * To compile use command "g++ project1_Bevensee_smb0207.cpp"  
 * in parent directory. 
 *
-* I used the project file. [ n o t e s ]
+* I used the "Project2.pdf" file on Canvas. [ n o t e s ]
 */
 
-#include <iostream>
+# include <iostream>
+# include <stdlib.h>
+# include <assert.h>
+# include <ctime>
 using namespace std;
 
 //----------- INITIALIZE VARIABLES -----------//
 
 //----------- FUNCTIONS -----------//
+// Wait for user... 
+void wait(void) { 
+    cout << "Press Enter to continue...";
+    cin.ignore().get(); 
+}
+
 // At least two alive...
 bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) { 
-    return false;
+    int num_alive; 
+    if (A_alive) { num_alive++; }
+    if (B_alive) { num_alive++; }
+    if (C_alive) { num_alive++; }
+    if (num_alive >= 2) { return true; } else { return false; }
 }
 
 // Shoots... 
 void Aaron_shoots1(bool& B_alive, bool& C_alive) { 
-
-}
-
-void Aaron_shoots2(bool& B_alive, bool& C_alive) { 
 
 }
 
@@ -37,9 +46,56 @@ void Charlie_shoots(bool& A_alive, bool& B_alive) {
 
 }
 
+void Aaron_shoots2(bool& B_alive, bool& C_alive) { 
+
+}
+
+//----------- TEST FUNCTIONS -----------//
+/* At least two alive test...
+* NOTE: I am using the formatting presented in "Project2.pdf" on Canvas. */ 
+
+void test_at_least_two_alive(void) { 
+    cout << "Unit Testing 1: Function - at_least_two_alive()\n";
+    
+    cout << "\tCase 1: Aaron alive, Bob alive, Charlie alive\n";
+    assert(true == at_least_two_alive(true, true, true));
+    cout << "\t\tCase passed ...\n";
+    
+    cout << "\tCase 2: Aaron dead, Bob alive, Charlie alive\n";
+    assert(true == at_least_two_alive(false, true, true));
+    cout << "\t\tCase passed ...\n";
+    
+    cout << "\tCase 3: Aaron alive, Bob dead, Charlie alive\n";
+    assert(true == at_least_two_alive(true, false, true));
+    cout << "\t\tCase passed ...\n";
+    
+    cout << "\tCase 4: Aaron alive, Bob alive, Charlie dead\n";
+    assert(true == at_least_two_alive(true, true, false));
+    cout << "\t\tCase passed ...\n";
+    
+    cout << "\tCase 5: Aaron dead, Bob dead, Charlie alive\n";
+    assert(false == at_least_two_alive(false, false, true));
+    cout << "\t\tCase passed ...\n";
+    
+    cout << "\tCase 6: Aaron dead, Bob alive, Charlie dead\n";
+    assert(false == at_least_two_alive(false, true, false));
+    cout << "\t\tCase passed ...\n";
+    
+    cout << "\tCase 7: Aaron alive, Bob dead, Charlie dead\n";
+    assert(false == at_least_two_alive(true, false, false));
+    cout << "\t\tCase passed ...\n";
+    
+    cout << "\tCase 8: Aaron dead, Bob dead, Charlie dead\n";
+    assert(false == at_least_two_alive(false, false, false));
+    cout << "\t\tCase passed ...\n";
+}
 
 
 
 //----------- MAIN -----------//
 int main() { 
-    cout << "kys";
+
+    // Testing Functions... 
+    test_at_least_two_alive(); wait(); 
+    cout << "test";
+}
