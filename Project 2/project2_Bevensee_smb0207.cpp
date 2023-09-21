@@ -8,7 +8,8 @@
 *
 * I used the "Project2.pdf" file on Canvas. I also referenced 
 * this stackoverflow article for the shorthand version of if/else
-* statements in C++: https://shorturl.at/qvFL3.
+* statements in C++: https://shorturl.at/qvFL3. For information on 
+* "for" loops I used https://www.w3schools.com/cpp/cpp_for_loop.asp. 
 */
 
 # include <iostream>
@@ -75,7 +76,7 @@ string Bob_shoots(bool& A_alive, bool& C_alive) {
 string Charlie_shoots(bool& A_alive, bool& B_alive) { 
     string target; 
     B_alive ? target = "b" : A_alive ? target = "a" : "";
-    if (shoots(charlie_accuracy)) { target == "B" ? B_alive = false : A_alive = false; }
+    target == "B" ? B_alive = false : A_alive = false;
     return target; 
 }
 
@@ -207,12 +208,47 @@ void test_aaron_shoots2(void) {
     cout << "\t\tAaron is shooting at Bob\n";
 }
 
+/* Strategy testing... */
+void test_strategy(int strat, int test_runs) { 
+    int a_victory = 0, b_victory = 0, c_victory = 0;
+    bool a_alive, b_alive, c_alive;
+
+    for (int i = 0; i < test_runs; i++) { 
+        a_alive = true; 
+        b_alive = true; 
+        c_alive = true; 
+
+        while(at_least_two_alive(a_alive, b_alive, c_alive)) { 
+            (a_alive && strat == 1) ? Aaron_shoots1(b_alive, c_alive) : (a_alive && strat == 2) ? Aaron_shoots2(b_alive, c_alive) : "";
+            b_alive ? Bob_shoots(a_alive, c_alive) : ""; 
+            c_alive ? Charlie_shoots(a_alive, b_alive) : ""; 
+
+            // TESTING
+            cout << a_alive << endl;
+            cout << b_alive << endl;  
+            cout << c_alive << endl << endl;
+
+            wait(); 
+            // END TESTING 
+        }
+
+        a_alive ? a_victory++ : b_alive ? b_victory++ : c_victory++; 
+    }
+
+    cout << "Aaron won " << a_victory << "/" << test_runs << " duels or \n";
+}
+
 //----------- MAIN -----------//
 int main() { 
     /* Testing Functions... */  
-    test_at_least_two_alive(); wait(); 
-    test_aaron_shoots1(); wait();
-    test_bob_shoots(); wait(); 
-    test_charlie_shoots(); wait(); 
-    test_aaron_shoots2(); wait();
+    //test_at_least_two_alive(); wait(); 
+    //test_aaron_shoots1(); wait();
+    //test_bob_shoots(); wait(); 
+    //test_charlie_shoots(); wait(); 
+    //test_aaron_shoots2(); wait();
+
+    cout << "Ready to test strategy 1 (run 5 times):\n"; wait();
+    test_strategy(1, 5); 
+    cout << "Ready to test strategy 2 (run 5 times):\n"; wait();
+    test_strategy(2, 5);
 }
