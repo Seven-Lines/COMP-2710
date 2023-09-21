@@ -51,10 +51,12 @@ bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) {
 }
 
 /* Shoots... 
+* 
+* Code (1) selects a target and (2) tests to see if the shot hit.
 *
 * NOTE: The following "[person]_shoots" functions won't run 
 * in the first place if at_least_two_alive = false. IE: there 
-* cannot be two false inputs. 
+* cannot be two false inputs.
 */
 string Aaron_shoots1(bool& B_alive, bool& C_alive) { 
     string target; 
@@ -70,12 +72,20 @@ string Bob_shoots(bool& A_alive, bool& C_alive) {
     return target; 
 }
 
-void Charlie_shoots(bool& A_alive, bool& B_alive) { 
-//return(; 
+string Charlie_shoots(bool& A_alive, bool& B_alive) { 
+    string target; 
+    B_alive ? target = "b" : A_alive ? target = "a" : "";
+    if (shoots(charlie_accuracy)) { target == "B" ? B_alive = false : A_alive = false; }
+    return target; 
 }
 
-void Aaron_shoots2(bool& B_alive, bool& C_alive) { 
-
+string Aaron_shoots2(bool& B_alive, bool& C_alive) { 
+    /* NOTE: This code assumes that Charlie hits his shot 100% of 
+     * the time and that there doesn't exist a possibility where 
+     * either Bob or Charlie don't die in the first round.  */
+    string target; 
+    (B_alive && C_alive) ? target = "null" : target = Aaron_shoots1(B_alive, C_alive);  
+    return target; 
 }
 
 //----------- TEST FUNCTIONS -----------//
@@ -116,6 +126,7 @@ void test_at_least_two_alive(void) {
     cout << "\t\tCase passed ...\n";
 }
 
+/* Shoots testing... */
 void test_aaron_shoots1(void) { 
     bool b, c;
     cout << "Unit Testing 2: Function Aaron_shoots1(B_alive, C_alive)\n";
@@ -157,8 +168,43 @@ void test_bob_shoots(void) {
 }
 
 void test_charlie_shoots(void) { 
+    bool a, b;
+    cout << "Unit 4 Testing: Function Charlie_shoots(A_alive, B_alive)\n";
+
+    cout << "\tCase 1: Aaron alive, Bob alive\n";
+    a = true; b = true; 
+    assert("b" == Charlie_shoots(a, b));
+    cout <<  "\t\tCharlie is shooting at Bob\n";
+
+    cout << "\tCase 2: Aaron dead, Bob alive\n";
+    a = false; b = true; 
+    assert("b" == Charlie_shoots(a, b));
+    cout <<  "\t\tCharlie is shooting at Bob\n";
+
+    cout << "\tCase 3: Aaron alive, Bob dead\n";
+    a = true; b = false; 
+    assert("a" == Charlie_shoots(a, b));
+    cout <<  "\t\tCharlie is shooting at Aaron\n";
+}
+
+void test_aaron_shoots2(void) { 
     bool b, c;
-    cout << "Unit 4 Testing: Function Charlie_shoots";
+    cout << "Unit Testing 5: Function Aaron_shoots2(B_alive, C_alive)\n";
+
+    cout << "\tCase 1: Bob alive, Charlie alive\n";
+    b = true; c = true;
+    assert("null" == Aaron_shoots2(b, c));
+    cout << "\t\tAaron intentionally misses his first shot.\n\t\tBoth Bob and Charlie are alive.\n";
+    
+    cout << "\tCase 2: Bob dead, Charlie alive\n";
+    b = false; c = true;
+    assert("c" == Aaron_shoots2(b, c));
+    cout << "\t\tAaron is shooting at Charlie\n";
+
+    cout << "\tCase 3: Bob alive, Charlie dead\n";
+    b = true; c = false;
+    assert("b" == Aaron_shoots2(b, c));
+    cout << "\t\tAaron is shooting at Bob\n";
 }
 
 //----------- MAIN -----------//
@@ -167,5 +213,6 @@ int main() {
     test_at_least_two_alive(); wait(); 
     test_aaron_shoots1(); wait();
     test_bob_shoots(); wait(); 
-
+    test_charlie_shoots(); wait(); 
+    test_aaron_shoots2(); wait();
 }
