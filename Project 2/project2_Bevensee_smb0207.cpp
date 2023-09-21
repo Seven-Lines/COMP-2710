@@ -211,7 +211,7 @@ void test_aaron_shoots2(void) {
 }
 
 /* Strategy testing... */
-void test_strategy(int strat, int test_runs) { 
+int test_strategy(int strat, int test_runs) { 
     int a_victory = 0, b_victory = 0, c_victory = 0;
     bool a_alive, b_alive, c_alive;
 
@@ -229,6 +229,8 @@ void test_strategy(int strat, int test_runs) {
     cout << "Aaron won " << a_victory << "/" << test_runs << " duels or " << static_cast <double>(a_victory) / test_runs * 100 << "%\n";
     cout << "Bob won " << b_victory << "/" << test_runs << " duels or " << static_cast <double>(b_victory) / test_runs * 100 << "%\n";
     cout << "Charlie won " << c_victory << "/" << test_runs << " duels or " << static_cast <double>(c_victory) / test_runs * 100 << "%\n";
+
+    return static_cast <double>(a_victory) / test_runs * 100;
 }
 
 //----------- MAIN -----------//
@@ -241,9 +243,11 @@ int main() {
     test_aaron_shoots2(); wait();
 
     cout << "Ready to test strategy 1 (run 5 times):\n"; wait();
-    test_strategy(1, 10000); cout << endl; 
+    int strategy_1_effectiveness = test_strategy(1, 10000); cout << endl; 
     cout << "Ready to test strategy 2 (run 5 times):\n"; wait();
-    test_strategy(2, 10000); cout << endl;
+    int strategy_2_effectiveness = test_strategy(2, 10000); cout << endl;
+
+    (strategy_1_effectiveness > strategy_2_effectiveness) ? cout << "Strategy 1 is better than strategy 2.\n" : cout << "Strategy 2 is better than strategy 1.\n\n";
 
     return 0; 
 }
