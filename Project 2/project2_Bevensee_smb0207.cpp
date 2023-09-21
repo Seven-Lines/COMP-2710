@@ -10,6 +10,8 @@
 * this stackoverflow article for the shorthand version of if/else
 * statements in C++: https://shorturl.at/qvFL3. For information on 
 * "for" loops I used https://www.w3schools.com/cpp/cpp_for_loop.asp. 
+* I used https://www.geeksforgeeks.org/static_cast-in-cpp/ for when I 
+* used "<static_cast>".
 */
 
 # include <iostream>
@@ -19,9 +21,9 @@
 using namespace std;
 
 //----------- INITIALIZE VARIABLES -----------//
-const double aaron_accuracy = 33.3; 
-const double bob_accuracy = 50.0; 
-const double charlie_accuracy = 100.0;
+const double aaron_accuracy = 0.33; 
+const double bob_accuracy = 0.5; 
+//const double charlie_accuracy = 1.0; < unused
 
 //----------- FUNCTIONS -----------//
 /* Wait for user... */  
@@ -36,9 +38,8 @@ void wait(void) {
 * doesn't connect. 
 */
 bool shoots(double accuracy) { 
-    srand(time(0)); //  < Generate new seed for rand()
-    double shot_simulation = rand() % 100; 
-    if (shot_simulation <= accuracy) { return true; } else { return false; }
+    double shot_simulation = (double) rand() / (double) RAND_MAX; 
+    if (accuracy > shot_simulation) { return true; } else { return false; }
 }
 
 
@@ -57,26 +58,27 @@ bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) {
 *
 * NOTE: The following "[person]_shoots" functions won't run 
 * in the first place if at_least_two_alive = false. IE: there 
-* cannot be two false inputs.
+* cannot be two false inputs. This hasn't been accounted for in the 
+* following code. 
 */
 string Aaron_shoots1(bool& B_alive, bool& C_alive) { 
     string target; 
-    C_alive ? target = "c" : B_alive ? target = "b" : ""; 
+    C_alive ? target = "c" : target = "b"; 
     if (shoots(aaron_accuracy)) { target == "c" ? C_alive = false : B_alive = false; }
     return target;
 }
 
 string Bob_shoots(bool& A_alive, bool& C_alive) { 
     string target; 
-    C_alive ? target = "c" : A_alive ? target = "a" : "";
+    C_alive ? target = "c" : target = "a";
     if (shoots(bob_accuracy)) { target == "c" ? C_alive = false : A_alive = false; }
     return target; 
 }
 
 string Charlie_shoots(bool& A_alive, bool& B_alive) { 
     string target; 
-    B_alive ? target = "b" : A_alive ? target = "a" : "";
-    target == "B" ? B_alive = false : A_alive = false;
+    B_alive ? target = "b" : target = "a";
+    target == "b" ? B_alive = false : A_alive = false;
     return target; 
 }
 
@@ -214,41 +216,34 @@ void test_strategy(int strat, int test_runs) {
     bool a_alive, b_alive, c_alive;
 
     for (int i = 0; i < test_runs; i++) { 
-        a_alive = true; 
-        b_alive = true; 
-        c_alive = true; 
+        a_alive = true; b_alive = true; c_alive = true; 
 
         while(at_least_two_alive(a_alive, b_alive, c_alive)) { 
-            (a_alive && strat == 1) ? Aaron_shoots1(b_alive, c_alive) : (a_alive && strat == 2) ? Aaron_shoots2(b_alive, c_alive) : "";
-            b_alive ? Bob_shoots(a_alive, c_alive) : ""; 
+            (a_alive && strat == 1) ? Aaron_shoots1(b_alive, c_alive) : (a_alive && strat == 2) ? Aaron_shoots2(b_alive, c_alive) : "";            b_alive ? Bob_shoots(a_alive, c_alive) : ""; 
             c_alive ? Charlie_shoots(a_alive, b_alive) : ""; 
-
-            // TESTING
-            cout << a_alive << endl;
-            cout << b_alive << endl;  
-            cout << c_alive << endl << endl;
-
-            wait(); 
-            // END TESTING 
         }
 
         a_alive ? a_victory++ : b_alive ? b_victory++ : c_victory++; 
     }
 
-    cout << "Aaron won " << a_victory << "/" << test_runs << " duels or \n";
+    cout << "Aaron won " << a_victory << "/" << test_runs << " duels or " << static_cast <double>(a_victory) / test_runs * 100 << "%\n";
+    cout << "Bob won " << b_victory << "/" << test_runs << " duels or " << static_cast <double>(b_victory) / test_runs * 100 << "%\n";
+    cout << "Charlie won " << c_victory << "/" << test_runs << " duels or " << static_cast <double>(c_victory) / test_runs * 100 << "%\n";
 }
 
 //----------- MAIN -----------//
 int main() { 
     /* Testing Functions... */  
-    //test_at_least_two_alive(); wait(); 
-    //test_aaron_shoots1(); wait();
-    //test_bob_shoots(); wait(); 
-    //test_charlie_shoots(); wait(); 
-    //test_aaron_shoots2(); wait();
+    test_at_least_two_alive(); wait(); 
+    test_aaron_shoots1(); wait();
+    test_bob_shoots(); wait(); 
+    test_charlie_shoots(); wait(); 
+    test_aaron_shoots2(); wait();
 
     cout << "Ready to test strategy 1 (run 5 times):\n"; wait();
-    test_strategy(1, 5); 
+    test_strategy(1, 10000); cout << endl; 
     cout << "Ready to test strategy 2 (run 5 times):\n"; wait();
-    test_strategy(2, 5);
+    test_strategy(2, 10000); cout << endl;
+
+    return 0; 
 }
