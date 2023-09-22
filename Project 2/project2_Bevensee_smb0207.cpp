@@ -38,10 +38,7 @@ void wait(void) {
 * doesn't connect. 
 */
 bool shoots(double accuracy) { 
-    int shot_simulation = rand() % 100 + 1; 
-
-    //return accuracy < shot_simulation ? true : false; 
-
+    int shot_simulation = rand() % 100; 
     if (accuracy > shot_simulation) { return true; } else { return false; }
 }
 
@@ -251,7 +248,7 @@ int main() {
     cout << "Ready to test strategy 2 (run 10,000 times):\n"; wait();
     int strategy_2_effectiveness = test_strategy(2, 10000); cout << endl;
 
-    //(strategy_1_effectiveness > strategy_2_effectiveness) ? cout << "Strategy 1 is better than strategy 2.\n" : cout << "Strategy 2 is better than strategy 1.\n\n";
+    (strategy_1_effectiveness > strategy_2_effectiveness) ? cout << "Strategy 1 is better than strategy 2.\n" : cout << "Strategy 2 is better than strategy 1.\n\n";
 
     return 0; 
 }
