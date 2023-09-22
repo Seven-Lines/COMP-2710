@@ -242,9 +242,9 @@ int main() {
     test_charlie_shoots(); wait(); 
     test_aaron_shoots2(); wait();
 
-    cout << "Ready to test strategy 1 (run 5 times):\n"; wait();
+    cout << "Ready to test strategy 1 (run 10000 times):\n"; wait();
     int strategy_1_effectiveness = test_strategy(1, 10000); cout << endl; 
-    cout << "Ready to test strategy 2 (run 5 times):\n"; wait();
+    cout << "Ready to test strategy 2 (run 10000 times):\n"; wait();
     int strategy_2_effectiveness = test_strategy(2, 10000); cout << endl;
 
     (strategy_1_effectiveness > strategy_2_effectiveness) ? cout << "Strategy 1 is better than strategy 2.\n" : cout << "Strategy 2 is better than strategy 1.\n\n";
