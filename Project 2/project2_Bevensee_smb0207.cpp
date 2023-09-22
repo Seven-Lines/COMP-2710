@@ -237,11 +237,11 @@ int test_strategy(int strat, int test_runs) {
 //----------- MAIN -----------//
 int main() { 
     /* Testing Functions... */  
-    //test_at_least_two_alive(); wait(); 
-    //test_aaron_shoots1(); wait();
-    //test_bob_shoots(); wait(); 
-    //test_charlie_shoots(); wait(); 
-    //test_aaron_shoots2(); wait();
+    test_at_least_two_alive(); wait(); 
+    test_aaron_shoots1(); wait();
+    test_bob_shoots(); wait(); 
+    test_charlie_shoots(); wait(); 
+    test_aaron_shoots2(); wait();
 
     cout << "Ready to test strategy 1 (run 5 times):\n"; wait();
     int strategy_1_effectiveness = test_strategy(1, 10000); cout << endl; 
