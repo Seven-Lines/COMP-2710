@@ -21,8 +21,8 @@
 using namespace std;
 
 //----------- INITIALIZE VARIABLES -----------//
-const double aaron_accuracy = 0.33; 
-const double bob_accuracy = 0.5; 
+const int aaron_accuracy = 33; 
+const int bob_accuracy = 50; 
 //const double charlie_accuracy = 1.0; < unused
 
 //----------- FUNCTIONS -----------//
@@ -38,7 +38,10 @@ void wait(void) {
 * doesn't connect. 
 */
 bool shoots(double accuracy) { 
-    double shot_simulation = (double) rand() / (double) RAND_MAX; 
+    int shot_simulation = rand() % 100 + 1; 
+
+    //return accuracy < shot_simulation ? true : false; 
+
     if (accuracy > shot_simulation) { return true; } else { return false; }
 }
 
@@ -219,7 +222,8 @@ int test_strategy(int strat, int test_runs) {
         a_alive = true; b_alive = true; c_alive = true; 
 
         while(at_least_two_alive(a_alive, b_alive, c_alive)) { 
-            (a_alive && strat == 1) ? Aaron_shoots1(b_alive, c_alive) : (a_alive && strat == 2) ? Aaron_shoots2(b_alive, c_alive) : "";            b_alive ? Bob_shoots(a_alive, c_alive) : ""; 
+            (a_alive && strat == 1) ? Aaron_shoots1(b_alive, c_alive) : (a_alive && strat == 2) ? Aaron_shoots2(b_alive, c_alive) : "";            
+            b_alive ? Bob_shoots(a_alive, c_alive) : ""; 
             c_alive ? Charlie_shoots(a_alive, b_alive) : ""; 
         }
 
@@ -230,24 +234,24 @@ int test_strategy(int strat, int test_runs) {
     cout << "Bob won " << b_victory << "/" << test_runs << " duels or " << static_cast <double>(b_victory) / test_runs * 100 << "%\n";
     cout << "Charlie won " << c_victory << "/" << test_runs << " duels or " << static_cast <double>(c_victory) / test_runs * 100 << "%\n";
 
-    return static_cast <double>(a_victory) / test_runs * 100;
+    return 3; 
 }
 
 //----------- MAIN -----------//
 int main() { 
     /* Testing Functions... */  
-    test_at_least_two_alive(); wait(); 
-    test_aaron_shoots1(); wait();
-    test_bob_shoots(); wait(); 
-    test_charlie_shoots(); wait(); 
-    test_aaron_shoots2(); wait();
+    //test_at_least_two_alive(); wait(); 
+    //test_aaron_shoots1(); wait();
+    //test_bob_shoots(); wait(); 
+    //test_charlie_shoots(); wait(); 
+    //test_aaron_shoots2(); wait();
 
-    cout << "Ready to test strategy 1 (run 5 times):\n"; wait();
+    cout << "Ready to test strategy 1 (run 10,000 times):\n"; wait();
     int strategy_1_effectiveness = test_strategy(1, 10000); cout << endl; 
-    cout << "Ready to test strategy 2 (run 5 times):\n"; wait();
+    cout << "Ready to test strategy 2 (run 10,000 times):\n"; wait();
     int strategy_2_effectiveness = test_strategy(2, 10000); cout << endl;
 
-    (strategy_1_effectiveness > strategy_2_effectiveness) ? cout << "Strategy 1 is better than strategy 2.\n" : cout << "Strategy 2 is better than strategy 1.\n\n";
+    //(strategy_1_effectiveness > strategy_2_effectiveness) ? cout << "Strategy 1 is better than strategy 2.\n" : cout << "Strategy 2 is better than strategy 1.\n\n";
 
     return 0; 
 }
