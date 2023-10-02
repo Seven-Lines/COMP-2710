@@ -15,28 +15,30 @@
 using namespace std;
 
 const int MAX_SIZE = 100;
+int readfile(int inputArray[], ifstream& instream);
 
-int main()
-{
-    ifstream inStream; 
+int main( ) {
+ifstream inStream1;
+    int iArray1[MAX_SIZE];
+    int iArray1_size;
+    int iArray2[MAX_SIZE];
+    int iArray2_size;
 
-    int data;
-    cout << "file name:";
-    cin >> filename;
-    cout << "entered filename is:" << filename << endl;
-    inStream.open(filename);
-    inStream.open((char*)filename.c_str());
-    if (inStream.fail()) {
-        cout << "Input file opening failed." << endl;
-        exit(1);
-    }
+    inStream1.open("input1.txt");
+    iArray1_size = readfile(inputAry, inStreamFirst);
 
-    inStream >> data;
-
-    while (!inStream.eof()) {
-        cout << data << endl;
-        inStream >> data;
-    }
-    inStream.close();
+    inStreamFirst.close( );
+    
     return 0;
+}
+
+int readfile(int inputArray[], ifstream& inStream){
+    int index;
+    inStream >> inputArray[index];
+    while (! inStream.eof()) {
+        cout << inputArray[index] << endl;
+        index++;
+        inStream >> inputArray[index];
+    }
+    return index;
 }
