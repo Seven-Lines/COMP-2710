@@ -16,10 +16,8 @@ using namespace std;
 
 const int MAX_SIZE = 100;
 
-int iArray1[MAX_SIZE];
-int iArray1_size;
-int iArray2[MAX_SIZE];
-int iArray2_size;
+int iArray1[MAX_SIZE], iArray2[MAX_SIZE], iArray3[MAX_SIZE];
+int iArray1_size, iArray2_size, iArray3_size; 
 
 //----------------------------- FILE HANDLING -----------------------------//
 /* Read's the file's contents...
@@ -65,6 +63,9 @@ int fetch_file(string file_index, int array[]) {
     return readfile(array, instream, filename);
 }
 
+//--------------------- NUMBER SORTING ALGORITHMS ------------------------//
+
+
 //----------------------------- MAIN -----------------------------//
 /* Main function... */
 int main() { 
@@ -73,6 +74,14 @@ int main() {
     // Fetch "File 1" and "File 2"...
     iArray1_size = fetch_file("first", iArray1);
     iArray2_size = fetch_file("second", iArray2); 
+
+    // Combine and sort "File 1" and "File 2"... 
+    iArray3_size = iArray2_size + iArray3_size;
+    for (int i = 0; i < iArray1_size; i++) { iArray3[i] = iArray1[i]; }
+    for (int i = 0; i < iArray2_size; i++) { iArray3[i + iArray1_size] = iArray1[i]; }
+
+    // Write sorted contents of "File 1" and "File 2" to a third file. 
+        
 
     return 0; // Close program
 }
