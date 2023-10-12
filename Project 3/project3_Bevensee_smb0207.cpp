@@ -64,7 +64,30 @@ int fetch_file(string file_index, int array[]) {
 }
 
 //--------------------- NUMBER SORTING ALGORITHMS ------------------------//
+/* Bubble Sort Algorithm...
+*
+*   NOTE: I got this from COMP-1220 (last semester), and I specifically chose
+*   it because it is the easiest to implement. The code that I'm using I 
+*   implemented from a  geeksforgeeks.org article (1), linked below.
+*
+*   (1) https://www.geeksforgeeks.org/bubble-sort/
+*/
+void bubble_sort_algorithm(int array[], int array_size)
+{
+    int i1, i2;
+    bool sh; // "swap handling"
 
+    for (i1 = 0; i1 < array_size - 1; i1++) {
+        sh = false;
+        for (i2 = 0; i2 < array_size - i1 - 1; i2++) {
+            if (array[i2] > array[i2 + 1]) {
+                sh = true;
+                swap(array[i2], array[i2 + 1]);
+            }
+        }
+        if (sh == false){ break; }
+    }
+}
 
 //----------------------------- MAIN -----------------------------//
 /* Main function... */
@@ -80,8 +103,16 @@ int main() {
     for (int i = 0; i <= iArray1_size; i++) { iArray3[i] = iArray1[i]; }
     for (int i = 0; i <= iArray2_size; i++) { iArray3[i + iArray1_size + 1] = iArray2[i]; }
 
-    // Write sorted contents of "File 1" and "File 2" to a third file. 
+    // Print contents of "File 1" and "File 2"
+    bubble_sort_algorithm(iArray3, iArray3_size);
+    cout << "The sorted list of " << iArray3_size << " numbers is:";
+    for (int i = 0; i < iArray3_size; i++) {
+        cout << " " << iArray3[i];
+    }
+    cout << endl;
     
+    // Write new array to "File 3".  
+
 
     return 0; // Close program
 }
