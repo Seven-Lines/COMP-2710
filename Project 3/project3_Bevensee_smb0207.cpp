@@ -76,12 +76,12 @@ int main() {
     iArray2_size = fetch_file("second", iArray2); 
 
     // Combine and sort "File 1" and "File 2"... 
-    iArray3_size = iArray2_size + iArray3_size;
-    for (int i = 0; i < iArray1_size; i++) { iArray3[i] = iArray1[i]; }
-    for (int i = 0; i < iArray2_size; i++) { iArray3[i + iArray1_size] = iArray1[i]; }
+    iArray3_size = iArray1_size + iArray2_size + 2;
+    for (int i = 0; i <= iArray1_size; i++) { iArray3[i] = iArray1[i]; }
+    for (int i = 0; i <= iArray2_size; i++) { iArray3[i + iArray1_size + 1] = iArray2[i]; }
 
     // Write sorted contents of "File 1" and "File 2" to a third file. 
-        
+    
 
     return 0; // Close program
 }
