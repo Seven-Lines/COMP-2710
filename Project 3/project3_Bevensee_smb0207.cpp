@@ -15,30 +15,64 @@
 using namespace std;
 
 const int MAX_SIZE = 100;
-int readfile(int inputArray[], ifstream& instream);
 
-int main( ) {
-ifstream inStream1;
-    int iArray1[MAX_SIZE];
-    int iArray1_size;
-    int iArray2[MAX_SIZE];
-    int iArray2_size;
+int iArray1[MAX_SIZE];
+int iArray1_size;
+int iArray2[MAX_SIZE];
+int iArray2_size;
 
-    inStream1.open("input1.txt");
-    iArray1_size = readfile(inputAry, inStreamFirst);
+//----------------------------- FILE HANDLING -----------------------------//
+/* Read's the file's contents...
+*
+*  NOTE: Taken from Project3.pdf file. The functionality of this function is
+*  to return the number of lines in the file AND assign values to the given 
+   array. 
+*/
+int readfile(int inputArray[], ifstream& instream, string filename){
+    int index = 0;
 
-    inStreamFirst.close( );
-    
-    return 0;
+    instream >> inputArray[index];
+    while (!instream.eof()) {
+        index++;
+        instream >> inputArray[index];
+    }
+
+    cout << "The list of " + std::to_string(index + 1) + " numbers in this file " + filename + " is:\n";
+    for (int i = 0; i <= index; i++) {
+        cout << inputArray[i] << "\n";
+    }
+
+    cout << endl;
+
+    return index;
 }
 
-int readfile(int inputArray[], ifstream& inStream){
-    int index;
-    inStream >> inputArray[index];
-    while (! inStream.eof()) {
-        cout << inputArray[index] << endl;
-        index++;
-        inStream >> inputArray[index];
-    }
-    return index;
+/* Fetch's the file based on user input... 
+*  
+*  NOTE: The functionality of this function is to (1) make sure the file is 
+*  valid and (2) send that valid file to the "readfile" function.
+*/
+int fetch_file(string file_index, int array[]) { 
+    ifstream instream; 
+    string filename; 
+
+    do{ 
+        cout << "Enter the " + file_index + " input file name: ";
+        cin >> filename;
+        instream.open((char*)filename.c_str());
+    } while(!(instream.good())); 
+
+    return readfile(array, instream, filename);
+}
+
+//----------------------------- MAIN -----------------------------//
+/* Main function... */
+int main() { 
+    cout << endl << "*** Welcome to Sean's sorting program ***\n";
+    
+    // Fetch "File 1" and "File 2"...
+    iArray1_size = fetch_file("first", iArray1);
+    iArray2_size = fetch_file("second", iArray2); 
+
+    return 0; // Close program
 }
