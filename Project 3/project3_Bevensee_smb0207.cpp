@@ -74,18 +74,15 @@ int fetch_file(string file_index, int array[]) {
 */
 void bubble_sort_algorithm(int array[], int array_size)
 {
-    int i1, i2;
-    bool sh; // "swap handling"
-
-    for (i1 = 0; i1 < array_size - 1; i1++) {
-        sh = false;
-        for (i2 = 0; i2 < array_size - i1 - 1; i2++) {
-            if (array[i2] > array[i2 + 1]) {
-                sh = true;
-                swap(array[i2], array[i2 + 1]);
+    for (int i = 0; i < array_size - 1; i++) {
+        for (int j = 0; j < array_size - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+                // Swap array[j] and array[j+1]
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
             }
         }
-        if (sh == false){ break; }
     }
 }
 
