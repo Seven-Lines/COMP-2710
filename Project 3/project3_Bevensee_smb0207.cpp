@@ -24,7 +24,7 @@ int iArray1_size, iArray2_size, iArray3_size;
 *
 *  NOTE: Taken from Project3.pdf file. The functionality of this function is
 *  to return the number of lines in the file AND assign values to the given 
-   array. 
+*  array. 
 */
 int readfile(int inputArray[], ifstream& instream, string filename){
     int index = 0;
@@ -89,6 +89,25 @@ void bubble_sort_algorithm(int array[], int array_size)
     }
 }
 
+/* Write to file. 
+*
+*  NOTE: A friend recommended that I use "ofstream outstream" and I also used 
+*  this forum for help (1).
+*
+*  (1) https://www.sololearn.com/Discuss/2977617/how-is-c_str-function-working-in-this-c-code-please-explain-complete-code-in-description
+*/
+void write_file(int array[], int array_size) { 
+    ofstream outstream; 
+    string filename; 
+
+    cout << "Enter the output file name: "; cin >> filename; 
+
+    outstream.open((char*)filename.c_str());
+    for (int i = 0; i < array_size; i++) { outstream << array[i] << "\n"; }
+
+    cout << "*** Please check the new file - " << filename << " ***\n";
+} 
+
 //----------------------------- MAIN -----------------------------//
 /* Main function... */
 int main() { 
@@ -112,7 +131,9 @@ int main() {
     cout << endl;
     
     // Write new array to "File 3".  
+    write_file(iArray3, iArray3_size); 
 
-
-    return 0; // Close program
+    // Close program
+    cout << "*** Goodbye. ***" << endl;
+    return 0; 
 }
