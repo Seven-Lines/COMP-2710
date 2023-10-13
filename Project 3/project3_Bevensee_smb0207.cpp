@@ -3,12 +3,14 @@
 * AUB ID: smb0207
 * FILE NAME: project3_Bevensee_smb0207.cpp
 *
-* To compile use command "g++ project1_Bevensee_smb0207.cpp"  
-* in parent directory. 
+* To compile use command "g++ project3_Bevensee_smb0207.cpp"  
+* in parent directory. Use the command "./a.out" to run the code.
+* If you are denied access, give the file execute permissions with 
+* "chmod". 
 *
 * I used some of the example code given in the "Project3.pdf" file on 
-* Canvas.  
-* 
+* Canvas as well as https://www.geeksforgeeks.org/ articles and a single 
+* https://www.sololearn.com/ forum page. 
 */
 #include <fstream>
 #include <iostream>
@@ -36,9 +38,7 @@ int readfile(int inputArray[], ifstream& instream, string filename){
     }
 
     cout << "The list of " + std::to_string(index + 1) + " numbers in this file " + filename + " is:\n";
-    for (int i = 0; i <= index; i++) {
-        cout << inputArray[i] << "\n";
-    }
+    for (int i = 0; i <= index; i++) { cout << inputArray[i] << "\n"; }
 
     cout << endl;
 
