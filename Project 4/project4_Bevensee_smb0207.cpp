@@ -19,7 +19,7 @@
 #include <assert.h>
 using namespace std;
 
-//----------- STRUCTURES -----------//
+//--------------------------- STRUCTURES ---------------------------//
 /* Trivia Node */
 struct TriviaNode { 
     string question; 
@@ -38,8 +38,8 @@ struct TriviaNode {
 
 /* TriviaGame */
 struct TriviaGame {
-    TriviaNode *prev; 
-    TriviaNode *next;
+    TriviaNode *oldest; 
+    TriviaNode *latest;
     int questions; 
     int score;
 
@@ -49,9 +49,33 @@ struct TriviaGame {
     * the game.  
     */
     TriviaGame () { 
-        prev = nullptr; 
-        next = nullptr; 
+        oldest = nullptr; 
+        latest = nullptr; 
         questions = 0; 
         score = 0;
     }
+
+    // Add question
+    void add_question(string question_input, string answer_input, int points_input) { 
+        TriviaNode* node = new TriviaNode(question_input, answer_input, points_input);
+        (questions == 0) ? oldest = node : latest->next = node; 
+        latest = node; 
+        questions++; 
+    };
+
+    // Ask question
+    void ask_question(int current_quesiton) { 
+
+    }
+
 };
+
+//--------------------------- MAIN ---------------------------//
+int main() { 
+    TriviaGame game = TriviaGame(); 
+    
+    game.add_question("test question", "test answer", 100);
+
+
+    return 0;
+}
