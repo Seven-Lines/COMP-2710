@@ -12,7 +12,7 @@
 * "for" loops I used https://www.w3schools.com/cpp/cpp_for_loop.asp. 
 * I used https://www.geeksforgeeks.org/static_cast-in-cpp/ for when I 
 * used "<static_cast>".
-*/
+*/  
 
 # include <iostream>
 # include <stdlib.h>
