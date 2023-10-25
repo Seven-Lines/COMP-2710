@@ -7,7 +7,10 @@
 * in parent directory. 
 *
 * I used the "Project4.pdf" file on Canvas. I got my information 
-* and the basic implementation of structures from w3schools.com. 
+* on structures and linked lists from w3schools.com. Other than the basics, 
+* I got specifics from...
+*   - getline() - https://www.geeksforgeeks.org/getline-string-c/
+*  
 */
 
 #include <iostream>
@@ -24,11 +27,31 @@ struct TriviaNode {
     int points; 
     TriviaNode *next; 
 
-    // > Constructor
+    // Constructor
     TriviaNode (string question_input, string answer_input, int points_input) { 
         question = question_input; 
         answer = answer_input; 
         points = points_input;
         next = nullptr; 
     };
+};
+
+/* TriviaGame */
+struct TriviaGame {
+    TriviaNode *prev; 
+    TriviaNode *next;
+    int questions; 
+    int score;
+
+    /* Constructor 
+    *
+    * NOTE: There is no user input for this because the entire program is 
+    * the game.  
+    */
+    TriviaGame () { 
+        prev = nullptr; 
+        next = nullptr; 
+        questions = 0; 
+        score = 0;
+    }
 };
