@@ -12,8 +12,8 @@
 */
 
 // #0#BEGIN# DO NOT MODIFY THIS COMMENT LINE!
-// Firstname
-// Lastname
+// Sean
+// Bevensee
 // #0#END# DO NOT MODIFY THIS COMMENT LINE!
 
 #include <stdio.h>
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
 {
     // change your the following id into your banner id
     // #8#BEGIN# DO NOT MODIFY THIS COMMENT LINE!
-    int banner_id = 0;
+    int banner_id = 904255430;
     // #8#END# DO NOT MODIFY THIS COMMENT LINE!
     cout << "Banner id: " << banner_id << endl;
 
